@@ -10,3 +10,7 @@ export const removePost = (value: Post): PostAction => ({
   type: PostActionTypes.REMOVE_POST,
   post: value,
 });
+
+export const fetchPostRequest = (): PostAction => ({
+  type: PostActionTypes.FETCH_POST_REQUEST,
+});
