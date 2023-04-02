@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPost, removePost } from "./store/posts/actions";
+import { addPost, fetchPostRequest, removePost } from "./store/posts/actions";
 import { Post } from "./store/posts/types";
 import "./App.css";
 
@@ -16,6 +16,10 @@ function App(): JSX.Element {
 
   const dispatch = useDispatch();
   const posts = useSelector((state: any) => state.post.posts);
+
+  useEffect(() => {
+    dispatch(fetchPostRequest());
+  }, [dispatch]);
 
   const handleAddPost = (): void => {
     dispatch(addPost(newPost));
@@ -93,7 +97,7 @@ function App(): JSX.Element {
                 </p>
                 <p>
                   <span>Published on </span>
-                  {post.publishedAt.toLocaleDateString()}
+                  {post.publishedAt}
                 </p>
                 <div>
                   {post.tags.map((tag: string) => (
