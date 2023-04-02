@@ -1,10 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useSelector, useDispatch } from "react-redux";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { increment } from "./store/counter/action";
+import { CounterStateType } from "./store/counter/types";
 
-function App() {
-  const [count, setCount] = useState(0)
+function App(): JSX.Element {
+  const count = useSelector(
+    (state: { counter: CounterStateType }) => state.counter.count
+  );
+  const dispatch = useDispatch();
 
   return (
     <div className="App">
@@ -18,9 +23,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <button onClick={() => dispatch(increment())}>count is {count}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
@@ -29,7 +32,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
