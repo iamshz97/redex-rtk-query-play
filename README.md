@@ -1,0 +1,3 @@
+# Redux RTK Query Playground
+
+This repository contains simple playground projects for learning and experimenting with Redux + RTK Query, a powerful tool for managing API requests and responses in Redux applications. The project uses Vite and React to create a basic UI that displays a counter and allows the user to increment its value by clicking a button. The counter state is managed by Redux and updated using the Redux RTK Query library. The code is structured using Redux best practices, with separate files for actions, constants, reducers, and types. This project is designed to be a starting point for developers who want to learn more about Redux RTK Query and build more complex applications with it.
