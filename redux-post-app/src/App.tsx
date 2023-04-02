@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "./store/posts/types";
 import { addPost, fetchPostRequest, removePost } from "./store/posts/actions";
 import { Post } from "./store/posts/types";
 import "./App.css";
@@ -15,7 +16,9 @@ function App(): JSX.Element {
   });
 
   const dispatch = useDispatch();
-  const posts = useSelector((state: any) => state.post.posts);
+  const posts: Post[] = useSelector((state: any) => {
+    return state.posts.posts;
+  });
 
   useEffect(() => {
     dispatch(fetchPostRequest());
@@ -87,28 +90,29 @@ function App(): JSX.Element {
         <section className="all-posts-section">
           <h2>All posts</h2>
           <div className="card-list">
-            {posts.map((post: Post) => (
-              <div className="card" key={post.id}>
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-                <p>
-                  <span>By </span>
-                  {post.author}
-                </p>
-                <p>
-                  <span>Published on </span>
-                  {post.publishedAt}
-                </p>
-                <div>
-                  {post.tags.map((tag: string) => (
-                    <span className="tag" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
+            {posts != null &&
+              posts?.map((post: Post) => (
+                <div className="card" key={post.id}>
+                  <h3>{post.title}</h3>
+                  <p>{post.content}</p>
+                  <p>
+                    <span>By </span>
+                    {post.author}
+                  </p>
+                  <p>
+                    <span>Published on </span>
+                    {post.publishedAt}
+                  </p>
+                  <div>
+                    {post.tags.map((tag: string) => (
+                      <span className="tag" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <button onClick={() => handleRemovePost(post)}>Remove</button>
                 </div>
-                <button onClick={() => handleRemovePost(post)}>Remove</button>
-              </div>
-            ))}
+              ))}
           </div>
         </section>
       </main>
