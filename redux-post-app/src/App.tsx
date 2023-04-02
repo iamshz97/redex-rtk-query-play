@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "./store/posts/types";
+import { AppState, PostAction } from "./store/posts/types";
 import { addPost, fetchPostRequest, removePost } from "./store/posts/actions";
 import { Post } from "./store/posts/types";
 import "./App.css";
+import { fetchPosts } from "./store/posts/actions/fetchPosts";
+import { ThunkDispatch } from "redux-thunk";
+import { RootState } from "./store/rootReducer";
 
 function App(): JSX.Element {
   const [newPost, setNewPost] = useState<Post>({
@@ -15,13 +18,13 @@ function App(): JSX.Element {
     tags: [],
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, unknown, PostAction>>();
   const posts: Post[] = useSelector((state: any) => {
     return state.posts.posts;
   });
 
   useEffect(() => {
-    dispatch(fetchPostRequest());
+    dispatch(fetchPosts());
   }, [dispatch]);
 
   const handleAddPost = (): void => {
@@ -101,7 +104,7 @@ function App(): JSX.Element {
                   </p>
                   <p>
                     <span>Published on </span>
-                    {post.publishedAt}
+                    {/* {post.publishedAt} */}
                   </p>
                   <div>
                     {post.tags.map((tag: string) => (

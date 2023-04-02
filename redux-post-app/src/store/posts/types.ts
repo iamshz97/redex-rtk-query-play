@@ -12,8 +12,11 @@ export interface Post {
 export interface PostAction {
   type: PostActionTypes;
   post?: Post;
+  error?: string;
 }
 
 export interface AppState {
   posts: Post[];
+  error: string;
+  loading: boolean;
 }

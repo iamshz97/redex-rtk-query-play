@@ -14,3 +14,13 @@ export const removePost = (value: Post): PostAction => ({
 export const fetchPostRequest = (): PostAction => ({
   type: PostActionTypes.FETCH_POST_REQUEST,
 });
+
+export const fetchPostSuccess = (value: Post): PostAction => ({
+  type: PostActionTypes.FETCH_POST_SUCCESS,
+  post: value,
+});
+
+export const fetchPostFailed = (value: string): PostAction => ({
+  type: PostActionTypes.FETCH_POST_FAILED,
+  error: value,
+});

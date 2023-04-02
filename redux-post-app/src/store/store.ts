@@ -1,4 +1,5 @@
 import {
+  Action,
   applyMiddleware,
   Dispatch,
   legacy_createStore as createStore,
@@ -6,6 +7,7 @@ import {
 } from "redux";
 import rootReducer, { RootState } from "./rootReducer";
 import loggerMiddleware from "redux-logger";
+import thunk, { ThunkAction } from "redux-thunk";
 
 const customLogger: Middleware = ({ getState }) => {
   return (next: Dispatch) => (action: any) => {
@@ -16,7 +18,7 @@ const customLogger: Middleware = ({ getState }) => {
   };
 };
 
-const store = createStore(rootReducer, applyMiddleware(customLogger));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 store.subscribe(() => {
   const data = store.getState();

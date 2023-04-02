@@ -3,6 +3,8 @@ import { AppState, Post, PostAction } from "./types";
 
 const initialState: AppState = {
   posts: [],
+  error: "",
+  loading: false,
 };
 
 const postReducer = (state: AppState = initialState, action: PostAction) => {
@@ -29,6 +31,19 @@ const postReducer = (state: AppState = initialState, action: PostAction) => {
             tags: ["tag1", "tag2", "tag3"],
           },
         ],
+        loading: true,
+      };
+    case PostActionTypes.FETCH_POST_SUCCESS:
+      return {
+        ...state,
+        posts: action.post,
+        loading: false,
+      };
+    case PostActionTypes.FETCH_POST_FAILED:
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
       };
     default:
       return state;
